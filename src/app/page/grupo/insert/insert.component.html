@@ -1,0 +1,31 @@
+<h2>Crear Nuevo Grupo</h2>
+
+<form [formGroup]="grupoForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" formControlName="nombre">
+    <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
+      <small *ngIf="nombre?.errors?.['required']">El nombre es requerido.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" formControlName="descripcion"></textarea>
+    <div *ngIf="descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)">
+      <small *ngIf="descripcion?.errors?.['required']">La descripción es requerida.</small>
+    </div>
+  </div>
+
+  <!-- Input para imagen (funcionalidad pendiente) -->
+  <!--
+  <div>
+    <label for="imagen">Imagen:</label>
+    <input id="imagen" type="file" (change)="onFileSelected($event)">
+  </div>
+  -->
+
+  <button type="submit" [disabled]="grupoForm.invalid">Crear Grupo</button>
+
+</form> 

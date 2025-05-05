@@ -1,0 +1,28 @@
+<h2>Crear Nuevo Investigador</h2>
+
+<form [formGroup]="investigadorForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" formControlName="nombre">
+    <!-- Mensajes de validación -->
+    <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
+      <small *ngIf="nombre?.errors?.['required']">El nombre es requerido.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="correo_electronico">Correo Electrónico:</label>
+    <input id="correo_electronico" type="email" formControlName="correo_electronico">
+    <!-- Mensajes de validación -->
+    <div *ngIf="correo_electronico?.invalid && (correo_electronico?.dirty || correo_electronico?.touched)">
+      <small *ngIf="correo_electronico?.errors?.['required']">El correo es requerido.</small>
+      <small *ngIf="correo_electronico?.errors?.['email']">Introduce un correo electrónico válido.</small>
+    </div>
+  </div>
+
+  <!-- Añade aquí otros campos del formulario -->
+
+  <button type="submit" [disabled]="investigadorForm.invalid">Crear Investigador</button>
+
+</form> 

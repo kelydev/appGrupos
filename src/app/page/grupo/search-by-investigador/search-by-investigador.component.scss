@@ -1,0 +1,295 @@
+.search-container {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+/* --- Filtros --- */
+.filters-area {
+  background-color: #f8f9fa; /* Fondo ligero para el área de filtros */
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap; /* Permitir que los elementos pasen a la siguiente línea si no caben */
+  gap: 15px;
+  margin-bottom: 15px; /* Espacio entre filas */
+  align-items: flex-end; /* Alinear items en la base */
+}
+
+.filters-row:last-child {
+  margin-bottom: 0;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Permitir que los items crezcan */
+}
+
+/* Tamaños específicos para los items de filtro */
+.filter-item-large { flex-basis: 300px; } /* Más ancho para nombres/líneas */
+.filter-item-medium { flex-basis: 200px; }
+.filter-item-small { flex-basis: 100px; } /* Más corto para año */
+.filter-item-buttons { 
+  flex-basis: auto; /* No crecer, tamaño basado en contenido */
+  flex-grow: 0;
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
+}
+
+.filter-item label {
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: #555;
+  font-weight: 500;
+}
+
+.filter-item input[type="text"] {
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+/* Botones de filtro */
+.filters-area button {
+  padding: 8px 20px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 38px; /* Coincidir altura con inputs */
+  font-weight: 500;
+}
+
+.primary-button {
+  background-color: #6f42c1; /* Morado */
+}
+.primary-button:hover {
+  background-color: #5a349a;
+}
+
+.secondary-button {
+  background-color: #6c757d; /* Gris */
+}
+.secondary-button:hover {
+  background-color: #5a6268;
+}
+
+.filters-area button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Contenedor para Autocomplete */
+.autocomplete-container {
+  position: relative;
+}
+
+/* Estilo del INPUT para parecerse al select de la imagen */
+.autocomplete-container input.styled-input {
+  /* Estilos base de input */
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1em;
+  /* Estilo específico */
+  border-top: 3px solid #a0e4d1; /* Borde superior verde claro */
+  height: 38px; 
+  background-color: white; 
+  width: 100%; 
+  box-sizing: border-box; 
+  padding-right: 30px; /* Espacio para la flecha */
+}
+
+/* Ajustar el input-wrapper */
+.input-wrapper {
+  position: relative; 
+  display: block; 
+  min-height: 38px; 
+}
+
+/* Asegurar que el input sigue ocupando el ancho y tiene padding */
+.autocomplete-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 2rem; /* Añadir padding para el botón X */
+}
+
+/* Asegurar que .styled-input también tenga padding */
+.styled-input {
+  padding-right: 2rem; /* Asegurar padding también aquí */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Reintroducir estilos para el botón X dentro del input --- */
+.clear-button {
+  position: absolute;
+  /* Ajustar right para que no colisione con la flecha si está presente */
+  right: 25px; /* Ejemplo: Asumiendo ~20px para la flecha + espacio */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem; /* Tamaño del icono X */
+  font-weight: bold; /* Hacerla más visible */
+  color: #999; /* Color grisáceo */
+  cursor: pointer;
+  padding: 0 0.3rem; 
+  line-height: 1; 
+
+  &:hover {
+    color: #333; 
+  }
+
+  &:focus {
+    outline: none; 
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); 
+  }
+}
+
+/* --- Resultados --- */
+.results-section { /* Contenedor general para resultados y paginación */
+  margin-top: 20px;
+}
+
+.loading-results,
+.no-results {
+  text-align: center;
+  padding: 30px;
+  color: #6c757d;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Responsive grid */
+  gap: 20px;
+}
+
+.result-card {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  background-color: #ab93d0; /* Morado más claro */
+  color: white;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.card-body {
+  padding: 15px;
+  flex-grow: 1; /* Ocupa espacio disponible */
+}
+
+.card-body p {
+  margin: 5px 0;
+  font-size: 0.95em;
+}
+
+.card-body ul {
+  margin-top: 5px;
+  padding-left: 20px;
+}
+
+.card-footer {
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.card-footer p {
+  margin: 2px 0;
+}
+
+.card-footer a {
+  color: #6f42c1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.card-footer a:hover {
+  text-decoration: underline;
+}
+
+.eye-icon {
+  margin-left: 5px;
+}
+
+/* --- Paginación --- */
+.pagination-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between; /* Alinear info a la izq, controles a la der */
+  align-items: center;
+  flex-wrap: wrap; /* Permitir wrap en pantallas pequeñas */
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.pagination-info {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-bottom: 10px; /* Espacio si hace wrap */
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.pagination-controls button {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  color: #6f42c1; /* Color primario */
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 35px; /* Ancho mínimo */
+  text-align: center;
+}
+
+.pagination-controls button:disabled {
+  color: #adb5bd;
+  cursor: not-allowed;
+  border-color: #e9ecef;
+}
+
+.pagination-controls button.active {
+  background-color: #6f42c1;
+  color: white;
+  border-color: #6f42c1;
+  font-weight: bold;
+}
+
+.pagination-dots {
+  padding: 5px;
+  color: #adb5bd;
+}
+
+/* Estilos para la ETIQUETA del item seleccionado (ahora simula el input) */
+/*
+.selected-item-tag { ... }
+.selected-item-tag span { ... }
+.tag-clear-button { ... }
+.tag-clear-button:hover { ... }
+*/

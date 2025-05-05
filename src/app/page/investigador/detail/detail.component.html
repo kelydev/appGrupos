@@ -1,0 +1,27 @@
+<div *ngIf="investigador$ | async as investigador; else loadingOrError">
+  <h2>Detalles del Investigador</h2>
+
+  <div>
+    <strong>ID:</strong> {{ investigador.id }}
+  </div>
+  <div>
+    <strong>Nombre:</strong> {{ investigador.nombre }}
+  </div>
+  <div>
+    <strong>Correo Electrónico:</strong> {{ investigador.correo_electronico }}
+  </div>
+
+  <!-- Botones de navegación -->
+  <div style="margin-top: 20px;">
+    <a [routerLink]="['/investigadores', investigador.id, 'editar']" class="button">Editar</a>
+    <a [routerLink]="['/investigadores']" class="button">Volver a la lista</a>
+    <!-- Podrías añadir un botón de eliminar aquí si lo deseas -->
+    <!-- <button (click)="eliminarInvestigador(investigador.id)">Eliminar</button> -->
+  </div>
+
+</div>
+
+<ng-template #loadingOrError>
+  <p>Cargando detalles del investigador o ID no encontrado...</p>
+  <!-- Podrías diferenciar entre loading y error si lo necesitas -->
+</ng-template> 

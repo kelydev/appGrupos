@@ -1,0 +1,35 @@
+<h2>Editar Investigador</h2>
+
+<div *ngIf="isLoading; else formContent">
+  <p>Cargando datos del investigador...</p>
+</div>
+
+<ng-template #formContent>
+  <form *ngIf="investigadorForm" [formGroup]="investigadorForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" type="text" formControlName="nombre">
+      <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
+        <small *ngIf="nombre?.errors?.['required']">El nombre es requerido.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="correo_electronico">Correo Electrónico:</label>
+      <input id="correo_electronico" type="email" formControlName="correo_electronico">
+      <div *ngIf="correo_electronico?.invalid && (correo_electronico?.dirty || correo_electronico?.touched)">
+        <small *ngIf="correo_electronico?.errors?.['required']">El correo es requerido.</small>
+        <small *ngIf="correo_electronico?.errors?.['email']">Introduce un correo electrónico válido.</small>
+      </div>
+    </div>
+
+    <!-- Otros campos si existen -->
+
+    <div style="margin-top: 20px;">
+      <button type="submit" [disabled]="investigadorForm.invalid || isLoading">Guardar Cambios</button>
+      <a [routerLink]="['/investigadores', investigadorId]" class="button">Cancelar</a> <!-- Enlace para volver al detalle -->
+    </div>
+
+  </form>
+</ng-template> 

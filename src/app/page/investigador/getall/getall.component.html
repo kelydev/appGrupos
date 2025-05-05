@@ -1,0 +1,16 @@
+<h2>Lista de Investigadores</h2>
+
+<div *ngIf="investigadores$ | async as investigadores; else loading">
+  <ul *ngIf="investigadores.length > 0; else noData">
+    <li *ngFor="let inv of investigadores">
+      {{ inv.nombre }} ({{ inv.correo_electronico }})
+      <!-- Aquí podrías añadir botones para ver detalle, editar, eliminar -->
+      <!-- <button (click)="verDetalle(inv.id)">Ver</button> -->
+    </li>
+  </ul>
+  <ng-template #noData><p>No hay investigadores para mostrar.</p></ng-template>
+</div>
+
+<ng-template #loading>
+  <p>Cargando investigadores...</p>
+</ng-template> 

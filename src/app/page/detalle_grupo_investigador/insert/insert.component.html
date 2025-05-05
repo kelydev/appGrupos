@@ -1,0 +1,48 @@
+<h2>Asociar Investigador a Grupo</h2>
+
+<form [formGroup]="detalleForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <!-- Select para Investigador -->
+  <div>
+    <label for="investigador_id">Investigador:</label>
+    <select id="investigador_id" formControlName="investigador_id">
+      <option value="" disabled>Seleccione un investigador...</option>
+      <option *ngFor="let inv of investigadores$ | async" [value]="inv.id">
+        {{ inv.nombre }}
+      </option>
+    </select>
+    <div *ngIf="investigador_id?.invalid && (investigador_id?.dirty || investigador_id?.touched)">
+      <small *ngIf="investigador_id?.errors?.['required']">Debe seleccionar un investigador.</small>
+    </div>
+  </div>
+
+  <!-- Select para Grupo -->
+  <div>
+    <label for="grupo_id">Grupo:</label>
+    <select id="grupo_id" formControlName="grupo_id">
+      <option value="" disabled>Seleccione un grupo...</option>
+      <option *ngFor="let grp of grupos$ | async" [value]="grp.id">
+        {{ grp.nombre }}
+      </option>
+    </select>
+    <div *ngIf="grupo_id?.invalid && (grupo_id?.dirty || grupo_id?.touched)">
+      <small *ngIf="grupo_id?.errors?.['required']">Debe seleccionar un grupo.</small>
+    </div>
+  </div>
+
+  <!-- Campo Fecha Vinculación -->
+  <div>
+    <label for="fecha_vinculacion">Fecha de Vinculación:</label>
+    <input id="fecha_vinculacion" type="date" formControlName="fecha_vinculacion">
+    <!-- No suele requerir validación obligatoria, pero puedes añadirla -->
+  </div>
+
+  <!-- Campo Rol -->
+  <div>
+    <label for="rol">Rol (Opcional):</label>
+    <input id="rol" type="text" formControlName="rol">
+  </div>
+
+  <button type="submit" [disabled]="detalleForm.invalid">Crear Asociación</button>
+
+</form> 

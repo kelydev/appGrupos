@@ -1,0 +1,17 @@
+<h2>Lista de Grupos</h2>
+
+<div *ngIf="grupos$ | async as grupos; else loading">
+  <ul *ngIf="grupos.length > 0; else noData">
+    <li *ngFor="let grupo of grupos">
+      <h3>{{ grupo.nombre }}</h3>
+      <p>{{ grupo.descripcion }}</p>
+      <img *ngIf="grupo.imagenUrl" [src]="grupo.imagenUrl" alt="Imagen de {{ grupo.nombre }}" width="100"> <!-- Asume que imagenUrl es la ruta completa o relativa a /uploads/ -->
+      <!-- Botones para acciones -->
+    </li>
+  </ul>
+  <ng-template #noData><p>No hay grupos para mostrar.</p></ng-template>
+</div>
+
+<ng-template #loading>
+  <p>Cargando grupos...</p>
+</ng-template> 
