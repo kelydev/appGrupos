@@ -1,11 +1,17 @@
 .search-container {
-  padding: 20px;
+  padding: 20px 50px;
   font-family: sans-serif;
+
+  h6 {
+    text-align: center;
+    color: #343a40;
+    font-weight: 600;
+  }
 }
 
 /* --- Filtros --- */
 .filters-area {
-  background-color: #f8f9fa; /* Fondo ligero para el área de filtros */
+  background-color: #ffffff; /* Fondo ligero para el área de filtros */
   padding: 20px;
   border: 1px solid #dee2e6;
   border-radius: 8px;
@@ -43,9 +49,9 @@
 
 .filter-item label {
   margin-bottom: 5px;
-  font-size: 0.9em;
-  color: #555;
-  font-weight: 500;
+  font-size: 12px;
+  color: #344764;
+  font-weight: 700;
 }
 
 .filter-item input[type="text"] {
@@ -67,10 +73,10 @@
 }
 
 .primary-button {
-  background-color: #6f42c1; /* Morado */
+  background-color: #20c997;
 }
 .primary-button:hover {
-  background-color: #5a349a;
+  background-color: #1baa80;
 }
 
 .secondary-button {
@@ -234,56 +240,90 @@
   margin-left: 5px;
 }
 
-/* --- Paginación --- */
+/* --- Paginación (Estilo moderno) --- */
 .pagination-container {
-  margin-top: 30px;
+  margin-top: 2.5rem; 
   display: flex;
-  justify-content: space-between; /* Alinear info a la izq, controles a la der */
-  align-items: center;
-  flex-wrap: wrap; /* Permitir wrap en pantallas pequeñas */
-  padding-top: 15px;
-  border-top: 1px solid #eee;
+  flex-direction: column; 
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 16px 50px; 
+  border-top: 1px solid #e9ecef; 
 }
 
 .pagination-info {
-  font-size: 0.9em;
+  font-size: 0.85rem; 
   color: #6c757d;
-  margin-bottom: 10px; /* Espacio si hace wrap */
+  margin-bottom: 0.75rem;
 }
 
 .pagination-controls {
   display: flex;
-  gap: 5px;
+  gap: 0.5rem; 
   align-items: center;
-}
 
-.pagination-controls button {
-  background-color: #fff;
-  border: 1px solid #dee2e6;
-  color: #6f42c1; /* Color primario */
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  min-width: 35px; /* Ancho mínimo */
-  text-align: center;
-}
+  button {
+    background-color: #fff;
+    border: 1px solid #dee2e6; 
+    color: #495057;
+    padding: 0.5rem;
+    min-width: 36px;
+    min-height: 36px;
+    line-height: 1;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-.pagination-controls button:disabled {
-  color: #adb5bd;
-  cursor: not-allowed;
-  border-color: #e9ecef;
-}
+    &:hover:not(:disabled):not(.active) {
+        background-color: #f8f9fa; 
+        border-color: #ced4da;
+    }
 
-.pagination-controls button.active {
-  background-color: #6f42c1;
-  color: white;
-  border-color: #6f42c1;
-  font-weight: bold;
-}
+    &:disabled {
+      color: #adb5bd;
+      cursor: not-allowed;
+      background-color: #f8f9fa;
+      border-color: #e9ecef;
+    }
 
-.pagination-dots {
-  padding: 5px;
-  color: #adb5bd;
+    &.active {
+      background-color: #20c997; 
+      color: white;
+      border-color: #20c997;
+      font-weight: 600;
+    }
+    
+    .icon-prev,
+    .icon-next {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #495057;
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+    .icon-prev {
+       mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>');
+    }
+     .icon-next {
+       mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>');
+    }
+    &:disabled .icon-prev,
+    &:disabled .icon-next {
+       background-color: #adb5bd;
+    }
+  }
+
+  .pagination-dots {
+    padding: 0.5rem 0.3rem;
+    color: #adb5bd;
+  }
 }
 
 /* Estilos para la ETIQUETA del item seleccionado (ahora simula el input) */
@@ -293,3 +333,271 @@
 .tag-clear-button { ... }
 .tag-clear-button:hover { ... }
 */
+
+.results-container {
+
+}
+
+.loading-indicator,
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.result-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+  border: 1px solid #e9ecef;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #343a40;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  min-height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.member-icons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  min-height: 30px;
+}
+
+.member-icons.no-members span {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.member-icon {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background-color: #adb5bd;
+  border-radius: 50%;
+  mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg>');
+  mask-size: 60%;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.more-members {
+  font-size: 0.8rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+.card-info {
+  margin-bottom: 0.8rem;
+  .info-item {
+    margin: 0.25rem 0;
+    font-size: 0.8rem;
+    color: #495057;
+    strong {
+      color: #343a40;
+    }
+  }
+}
+
+.card-buttons {
+  display: flex;
+  gap: 0.75rem;
+
+  .button {
+    flex-grow: 1;
+    padding: 0.4rem 0.7rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+
+    &.button-resolution {
+      background-color: #e9ecef;
+      color: #495057;
+      border: 1px solid #ced4da;
+
+      .icon-eye {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        background-color: #495057;
+        mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path fill="currentColor" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>');
+        mask-size: contain;
+      }
+
+      &:hover {
+        background-color: #ced4da;
+      }
+      &.disabled {
+         background-color: #f8f9fa;
+         color: #adb5bd;
+         cursor: not-allowed;
+         border-color: #e9ecef;
+          .icon-eye { display: none; }
+      }
+    }
+
+    &.button-more {
+      background-color: #20c997;
+      color: white;
+      &:hover {
+        background-color: #1baa80;
+      }
+    }
+  }
+}
+
+/* Estilos para el Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+
+  h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    line-height: 1;
+
+    &:hover {
+      color: #343a40;
+    }
+  }
+}
+
+.modal-body {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #e9ecef;
+      font-size: 0.95rem;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  p {
+    color: #6c757d;
+  }
+}
+
+/* --- Media Queries para Responsividad de la Grid --- */
+
+@media (max-width: 992px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .result-card {
+    padding: 1rem;
+  }
+}
+
+/* --- Estilos específicos para ng-select --- */
+.filter-item .ng-select {
+  .ng-select-container {
+    min-height: 38px;
+    border-radius: 4px;
+    border: 1px solid #ced4da; 
+    .ng-value-container {
+      .ng-value {
+        font-size: 0.85rem; 
+      }
+      .ng-placeholder {
+        font-size: 0.85rem; 
+        color: #6c757d;
+      }
+    }
+  }
+  &.ng-select-opened > .ng-select-container {
+     border-color: #20c997;
+     box-shadow: 0 0 0 2px rgba(32, 201, 151, 0.2);
+  }
+}
+
+.ng-dropdown-panel {
+  .ng-dropdown-panel-items {
+    .ng-option {
+      font-size: 0.85rem; 
+      padding: 6px 12px;
+    }
+    .ng-optgroup {
+       font-size: 0.85rem;
+    }
+  }
+}

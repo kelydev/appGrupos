@@ -7,9 +7,13 @@ import { DetalleGrupoInvestigadorInsertComponent } from './page/detalle_grupo_in
 import { InvestigadorDetailComponent } from './page/investigador/detail/detail.component';
 import { InvestigadorEditComponent } from './page/investigador/edit/edit.component';
 import { SearchByInvestigadorComponent } from './page/grupo/search-by-investigador/search-by-investigador.component';
+import { UserLoginComponent } from './page/user/login/user-login.component';
+import { HomeComponent } from './page/home/home.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/grupos', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
+
+  { path: 'login', component: UserLoginComponent },
 
   // Rutas Investigador
   { path: 'investigadores', component: InvestigadorGetAllComponent },
@@ -20,7 +24,7 @@ export const routes: Routes = [
   // Rutas Grupo
   { path: 'grupos', component: GrupoGetAllComponent },
   { path: 'grupos/nuevo', component: GrupoInsertComponent },
-  { path: 'grupos/buscar-por-investigador', component: SearchByInvestigadorComponent },
+  { path: 'gruposInvestigacion', component: SearchByInvestigadorComponent },
 
   // Rutas Detalle (Asociación)
   { path: 'detalles/nuevo', component: DetalleGrupoInvestigadorInsertComponent },

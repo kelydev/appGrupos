@@ -1,0 +1,62 @@
+:host {
+  --navbar-height: 60px; 
+  --sidebar-width: 240px; 
+}
+
+.navbar {
+  background-color: #20c997; // *** Verde principal ***
+  color: #fff; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001; 
+  height: var(--navbar-height, 60px); 
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  // *** Ajustar padding horizontal ***
+  padding: 0 1.5rem; // Menos padding vertical, ajustar horizontal
+  display: flex; // Necesario para alinear brand y end
+  align-items: center; // Centrar verticalmente
+  justify-content: space-between; // Poner espacio entre logo y perfil
+
+  .navbar-brand {
+    .navbar-item {
+      color: #fff; 
+      font-weight: bold;
+      font-size: 1.2rem; // Ajustar tamaño logo
+      padding: 0.5rem 0; // Ajustar padding logo
+      text-decoration: none;
+    }
+  }
+
+  .navbar-menu {
+    // *** Simplificado ya que usamos flex en .navbar ***
+    // display: flex;
+    // align-items: center;
+    // margin-left: auto;
+     
+     .navbar-end {
+      .navbar-item {
+        padding: 0; // Quitar padding extra si .navbar ya lo tiene
+        .buttons {
+          .profile-button { 
+             // ... (estilos botón perfil existentes) ...
+             padding: 0.5rem 0.8rem; // Ajustar padding botón perfil
+            .icon-profile {
+               // ...
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Media query para responsive (ejemplo básico)
+  @media (max-width: 768px) {
+    .navbar-menu {
+       // Ocultar menú o convertir en hamburguesa
+       display: none; 
+    }
+     // Mostrar botón hamburguesa (necesitaría HTML adicional)
+  }
+} 

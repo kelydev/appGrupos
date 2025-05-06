@@ -1,2 +1,27 @@
-<h1>Bienvenido</h1>
-<router-outlet />
+<!-- Navbar superior (se muestra solo si ESTÁ logueado) -->
+<app-navbar *ngIf="isLoggedIn$ | async"></app-navbar>
+
+<!-- Header público para usuarios NO logueados (se oculta al loguear) -->
+<nav class="public-header" *ngIf="!(isLoggedIn$ | async)">
+  <div class="header-brand">
+    <a routerLink="/" class="brand-item">
+      <span class="brand-icon"></span> <!-- Icono verde -->
+      Observatorio
+    </a>
+  </div>
+  <div class="header-links">
+    <a routerLink="/gruposInvestigacion" class="header-item">Grupo de Investigación</a>
+    <a routerLink="/login" class="button login-button">
+      <span class="login-icon"></span> <!-- Icono añadido -->
+      Iniciar sesión
+    </a>
+  </div>
+</nav>
+
+<!-- Sidebar (fijo y condicional) -->
+<app-sidebar *ngIf="isLoggedIn$ | async"></app-sidebar>
+
+<!-- El contenido principal necesita padding/margin para las barras fijas -->
+<div class="main-content" [class.logged-in]="isLoggedIn$ | async">
+  <router-outlet></router-outlet>
+</div>

@@ -16,6 +16,18 @@ export interface GrupoFilters {
   page?: number; // Añadir página
 }
 
+// Interfaz para la respuesta específica de la lista de grupos con investigadores anidados
+interface GrupoWithInvestigadores {
+  grupo: GrupoDetail; // Asumiendo que la estructura de 'grupo' coincide con GrupoDetail
+  investigadores: InvestigadorDetail[]; // O la interfaz apropiada para investigador
+}
+
+// Interfaz para la respuesta completa de la API para la lista de grupos
+interface GrupoListResponse {
+  data: GrupoWithInvestigadores[];
+  pagination: Pagination;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -51,15 +63,16 @@ export class GrupoService {
 
   // Método para obtener un resumen de todos los grupos (nombre y ID)
   getAllGruposSummary(): Observable<GrupoSummary[]> {
-    const params = new HttpParams().set('limit', '100');
-    // Forzar el tipo de respuesta esperado para este endpoint específico
-    return this.http.get<{ data: GrupoDetail[], pagination: Pagination }>(this.apiUrl, { params }).pipe(
-      map(response => response.data.map(grupoDetail => ({
-        id: grupoDetail.idGrupo,
-        nombre: grupoDetail.nombre,
-        lineaInvestigacion: grupoDetail.lineaInvestigacion,
-        tipoInvestigacion: grupoDetail.tipoInvestigacion,
-        fechaRegistro: grupoDetail.fechaRegistro
+    const params = new HttpParams().set('limit', '100'); // Considera si 'limit' es el parámetro correcto o si debe ser otro, como 'size' o 'perPage'
+    // Ajustar el tipo de respuesta esperado para este endpoint específico
+    return this.http.get<GrupoListResponse>(this.apiUrl, { params }).pipe(
+      map(response => response.data.map(item => ({ // Mapear sobre response.data
+        id: item.grupo.idGrupo, // Acceder a los datos a través de item.grupo
+        nombre: item.grupo.nombre,
+        lineaInvestigacion: item.grupo.lineaInvestigacion,
+        tipoInvestigacion: item.grupo.tipoInvestigacion,
+        fechaRegistro: item.grupo.fechaRegistro // Asegúrate que GrupoSummary incluya fechaRegistro si lo necesitas
+        // año: new Date(item.grupo.fechaRegistro).getFullYear().toString() // Si necesitas solo el año
       })))
     );
   }

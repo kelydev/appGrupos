@@ -1,16 +1,60 @@
-<h2>Lista de Investigadores</h2>
+<div class="list-container">
+  <h2>Lista de Investigadores</h2>
 
-<div *ngIf="investigadores$ | async as investigadores; else loading">
-  <ul *ngIf="investigadores.length > 0; else noData">
-    <li *ngFor="let inv of investigadores">
-      {{ inv.nombre }} ({{ inv.correo_electronico }})
-      <!-- Aquí podrías añadir botones para ver detalle, editar, eliminar -->
-      <!-- <button (click)="verDetalle(inv.id)">Ver</button> -->
-    </li>
-  </ul>
-  <ng-template #noData><p>No hay investigadores para mostrar.</p></ng-template>
-</div>
+  <div class="filter-bar">
+    <div class="filter-inputs">
+      <input type="text" placeholder="Buscar por ID...">
+      <input type="text" placeholder="Buscar por Nombre...">
+      <input type="text" placeholder="Buscar por Rol...">
+    </div>
+    <div class="filter-buttons">
+      <button class="search-button">Buscar</button>
+      <button class="add-button" routerLink="/investigadores/nuevo">+</button>
+    </div>
+  </div>
 
-<ng-template #loading>
-  <p>Cargando investigadores...</p>
-</ng-template> 
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Rol</th>
+          <th class="actions-column">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Iterar sobre los investigadores -->
+        <tr *ngFor="let inv of investigadores$ | async">
+          <td>{{ inv.idInvestigador }}</td>
+          <td>{{ inv.nombreCompleto }}</td>
+          <td>{{ inv.rol }}</td>
+          <td>
+            <!-- Botones de acción -->
+            <button class="action-button" title="Ver Detalles" (click)="verDetalles(inv.idInvestigador)">
+              <span class="icon-view"></span>
+            </button>
+            <button class="action-button" title="Editar" (click)="editarInvestigador(inv.idInvestigador)">
+              <span class="icon-edit"></span>
+            </button>
+            <button class="action-button" title="Eliminar" (click)="eliminarInvestigador(inv.idInvestigador)">
+              <span class="icon-delete"></span>
+            </button>
+          </td>
+        </tr>
+        <!-- Mensaje si no hay datos -->
+         <tr *ngIf="!(investigadores$ | async) || (investigadores$ | async)?.length === 0">
+          <td colspan="4" style="text-align: center;">No hay investigadores para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Paginación Simple -->
+    <div class="simple-pagination">
+      <button [disabled]="!canGoPrevious()" (click)="previousPage()"><span class="icon-prev"></span></button>
+      <button [disabled]="!canGoNext()" (click)="nextPage()"><span class="icon-next"></span></button>
+    </div>
+
+  </div>
+
+</div> 

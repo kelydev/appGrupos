@@ -1,0 +1,124 @@
+/* Estilos globales si los tienes */
+
+/* Estilos para el header público */
+.public-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem; // Ajusta el padding según necesites
+  background-color: #fff; // Fondo blanco
+  border-bottom: 1px solid #e9ecef; // Borde inferior sutil
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: fixed; // Fijar el header
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; // Asegurar que esté por encima de otro contenido
+
+  .header-brand {
+    .brand-item {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #212529;
+      font-weight: 600;
+      font-size: 1.15rem;
+
+      .brand-icon {
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        background-color: #1bbc9b;
+        border-radius: 50%;
+        margin-right: 0.6rem; 
+        mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0-2.377a.623.623 0 0 0 .53-.313l3.367-5.83c.304-.526-.105-1.18-.707-1.18H4.81a.708.708 0 0 0-.707 1.18l3.367 5.83c.148.256.34.313.53.313z"/></svg>');
+        mask-size: 65%; // Ajustar tamaño de la máscara (triángulo)
+        mask-repeat: no-repeat;
+        mask-position: center;
+      }
+    }
+  }
+
+  .header-links {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+
+    .header-item {
+      text-decoration: none;
+      color: #495057;
+      font-weight: 400;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #20c997;
+      }
+    }
+
+    .login-button {
+      background: linear-gradient(90deg, #26e0b1, #1acfc2);
+      color: white;
+      border: none;
+      padding: 0.55rem 1.4rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex; 
+      align-items: center;
+      gap: 0.6rem;
+
+      .login-icon {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        background-color: rgba(255, 255, 255, 0.9);
+        mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg>');
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+      }
+
+      &:hover {
+        background: linear-gradient(to right, #1baa80, #18a08a);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+/* Ajuste para el contenido principal */
+.main-content {
+  background-color: transparent; 
+  padding: 2rem; 
+  transition: margin-left 0.3s ease-in-out;
+  flex-grow: 1; 
+
+  // Estilos base para cuando no está logueado (con header público)
+  padding-top: var(--navbar-height); // Mantenemos padding para header público
+
+  // Estilos cuando está logueado (CON sidebar Y CON navbar)
+  &.logged-in {
+    padding-top: var(--navbar-height); // Restaurar padding para navbar
+    margin-left: var(--sidebar-width);
+  }
+}
+
+/* Puedes añadir aquí los estilos de .navbar que teníamos si no están en su propio archivo */
+
+/* Definir variables globalmente o en :root si prefieres */
+:host {
+  --navbar-height: 60px; // Revisa si esta altura es correcta
+  --sidebar-width: 240px; // Revisa si este ancho es correcto
+}
+
+:host-context(body) {
+  background-color: #eef2f7; // *** Asegurar fondo azul grisáceo claro ***
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,24 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" routerLink="/"> Logo </a>
+    <!-- Puedes añadir un botón hamburguesa para móvil aquí -->
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+      <!-- Añade más enlaces según necesites -->
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <button class="button profile-button" (click)="logout()">
+            <span class="icon-profile"></span>
+            Perfil
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> 

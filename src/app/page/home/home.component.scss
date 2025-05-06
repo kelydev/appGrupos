@@ -1,0 +1,125 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.1rem 2rem; // Más padding vertical
+  text-align: center;
+  min-height: calc(90vh - 65px); // Ocupar altura restante (ajusta 65px a la altura de tu header)
+}
+
+.hero-section {
+  max-width: 700px;
+
+  h1 {
+    font-size: 2.8rem; // Ligeramente más pequeño que antes
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1.2rem; // Un poco más de margen
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: #6c757d; // Gris oscuro para el párrafo
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: #20c997; // Verde azulado
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #1baa80; // Un poco más oscuro al pasar el ratón
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.home-container.two-column {
+  display: grid; // Usar grid para dos columnas
+  grid-template-columns: 1fr 1fr; // Dos columnas de igual tamaño
+  gap: 3rem; // Espacio entre columnas
+  align-items: center; // Centrar verticalmente el contenido en las columnas
+  padding: 0.1rem 4rem; // Ajustar padding
+  min-height: calc(90vh - 65px); // Ajustar altura mínima como antes
+  max-width: 1200px; // Limitar ancho máximo opcionalmente
+  margin: 0 auto; // Centrar el contenedor si tiene max-width
+}
+
+.text-content {
+  text-align: left; // Alinear texto a la izquierda
+
+  h1 {
+    font-size: 3.2rem; // Tamaño de fuente grande
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: #20c997;
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #1baa80;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.image-content {
+  display: flex;
+  flex-direction: column; // Apilar imágenes verticalmente
+  gap: 1.5rem; // Espacio entre imágenes
+  align-items: center; // Centrar las imágenes horizontalmente en la columna
+
+  img {
+    width: 100%; // Permitir que la imagen ocupe el ancho disponible
+    max-width: 450px; // Limitar el ancho máximo de las imágenes (ajusta este valor)
+    height: auto;
+    border-radius: 12px; // Bordes redondeados
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); // Sombra sutil
+    object-fit: cover; // Asegurar que la imagen cubra el espacio
+  }
+}
+
+// Media query para pantallas más pequeñas (apilar columnas)
+@media (max-width: 992px) {
+  .home-container.two-column {
+    grid-template-columns: 1fr; // Una sola columna
+    text-align: center; // Centrar todo en móvil
+    padding: 2rem 1.5rem;
+  }
+
+  .text-content {
+    text-align: center; // Centrar texto
+    order: 2; // Mostrar texto después de las imágenes en móvil (opcional)
+  }
+
+  .image-content {
+     order: 1; // Mostrar imágenes primero (opcional)
+     margin-bottom: 2rem;
+  }
+} 

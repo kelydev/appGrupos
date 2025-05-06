@@ -1,0 +1,122 @@
+:host {
+  --navbar-height: 60px; // <-- Descomentar o asegurar que existe esta variable
+  --sidebar-width: 240px; // Ancho de la barra lateral (¡AJUSTAR!)
+}
+
+.sidebar-container {
+  position: fixed;
+  left: 0;
+  top: var(--navbar-height); // <-- Restaurar top para que empiece debajo del navbar
+  bottom: 0;
+  width: var(--sidebar-width);
+  background-color: #fff; // Fondo blanco
+  border-right: 1px solid #e9ecef; // Borde derecho sutil
+  padding: 1.5rem 0; // Padding vertical, sin padding horizontal
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // Empuja el footer hacia abajo
+  z-index: 1000; // Por debajo de la navbar si es necesario
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li a {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem; // Padding interno de enlaces
+  text-decoration: none;
+  color: #6c757d; // Gris más oscuro para inactivo
+  font-size: 0.9rem; // Ajustar tamaño si es necesario
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-left: 3px solid transparent; // Para indicador activo
+
+  .icon {
+    margin-right: 0.8rem;
+    width: 18px; // Ajustar tamaño icono
+    height: 18px;
+    display: inline-block;
+    background-color: #6c757d; // Icono gris por defecto
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    opacity: 0.9; // Ligeramente más opaco
+  }
+
+  // Iconos específicos (usa tus propios SVGs o fuentes)
+  .icon-grupos { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM5 14V9h1v5H5zm1-4h5V9H6v1zm5 4V9h1v5h-1zM6 7h5V6H6v1zm-1-2V4h1v1H5zm1 0V4h5v1H6z"/></svg>'); }
+  .icon-investigadores { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill="currentColor" fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path fill="currentColor" d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>'); }
+  .icon-config { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>'); }
+
+  &:hover {
+    background-color: #f8f9fa;
+    color: #20c997; // Verde al pasar el ratón
+    border-left-color: #e9ecef;
+    .icon { // Icono verde en hover
+       background-color: #20c997;
+    }
+  }
+
+  // Estilo para el enlace activo
+  &.active {
+    color: #20c997; // Verde
+    font-weight: 600;
+    background-color: #e6fcf5; // Fondo verde claro
+    border-left-color: #20c997; // Indicador verde
+
+    .icon {
+      opacity: 1;
+      background-color: #20c997; 
+    }
+  }
+}
+
+.sidebar-footer {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  // Los estilos de 'nav li a' se aplican aquí también por cascada
+  a {
+    display: flex; 
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    color: #6c757d; // Gris oscuro
+    font-size: 0.9rem; // Ajustar tamaño si es necesario
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    .icon { // Duplicar estilos de icono
+        margin-right: 0.8rem;
+        width: 18px; // Ajustar tamaño icono
+        height: 18px;
+        display: inline-block;
+        background-color: #6c757d; // Icono gris
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        opacity: 0.9;
+    }
+    
+    &:hover {
+        background-color: #f8f9fa;
+        color: #20c997; 
+        border-left-color: #e9ecef;
+        .icon { background-color: #20c997; }
+    }
+
+    &.active {
+        color: #20c997; 
+        font-weight: 600;
+        background-color: #e6fcf5; 
+        border-left-color: #20c997; 
+        .icon { opacity: 1; background-color: #20c997; }
+    }
+  }
+} 

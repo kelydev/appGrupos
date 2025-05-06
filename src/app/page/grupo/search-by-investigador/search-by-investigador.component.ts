@@ -9,6 +9,11 @@ import { InvestigadorSummary } from '../../investigador/investigador.model';
 import { environment } from '../../../../environments/environment';
 import { Observable, of, forkJoin, Subject } from 'rxjs';
 import { map, tap, catchError, mapTo, filter, take, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+// Registrar el locale español globalmente (o donde sea apropiado)
+registerLocaleData(localeEs, 'es');
 
 @Component({
   selector: 'app-search-by-investigador',
@@ -60,6 +65,10 @@ export class SearchByInvestigadorComponent implements OnInit {
   totalPages: number = 0;
   totalItems: number = 0;
   itemsPerPage: number = 6;
+
+  // --- Estado del Modal ---
+  isModalOpen = false;
+  selectedGroupForModal: { grupo: GrupoDetail, investigadores: InvestigadorDetail[] } | null = null;
 
   constructor(
     private grupoService: GrupoService,
@@ -261,17 +270,22 @@ export class SearchByInvestigadorComponent implements OnInit {
     this.lineaInvestigacionFilter = null;
     this.tipoInvestigacionFilter = null;
     this.anioFilter = null;
+    
+    // Limpiar los resultados y la paginación en lugar de buscar de nuevo
     this.apiResponse = null;
     this.currentPage = 1;
     this.totalPages = 0;
     this.totalItems = 0;
-    this.searchPerformed = false;
-    console.log('Filtros limpiados');
-    this.buscar(1);
+    this.searchPerformed = false; // Opcional: resetear si quieres mostrar mensaje "Realice una búsqueda"
+
+    console.log('Filtros limpiados. No se realiza búsqueda automática.');
+    // Quitar la llamada a buscar para evitar que cargue todo
+    // this.buscar(1);
   }
 
   verTodo(): void {
     this.limpiarFiltros();
+    this.buscar(1);
   }
 
   goToPage(page: number): void {
@@ -365,5 +379,18 @@ export class SearchByInvestigadorComponent implements OnInit {
   getResolucionUrl(nombreArchivo: string | undefined | null): string {
     if (!nombreArchivo) return '#';
     return `${environment.apiUrl}/uploads/${nombreArchivo}`;
+  }
+
+  // --- Métodos del Modal ---
+  openMemberModal(item: { grupo: GrupoDetail, investigadores: InvestigadorDetail[] }): void {
+    this.selectedGroupForModal = item;
+    this.isModalOpen = true;
+    console.log('Abriendo modal para:', item.grupo.nombre);
+  }
+
+  closeMemberModal(): void {
+    this.isModalOpen = false;
+    this.selectedGroupForModal = null;
+    console.log('Modal cerrado.');
   }
 }

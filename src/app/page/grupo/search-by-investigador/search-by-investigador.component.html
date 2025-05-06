@@ -1,22 +1,16 @@
 <div class="search-container">
-  <h2>Grupos de Investigación</h2>
+  <h3>GRUPOS DE INVESTIGACIÓN</h3>
 
   <!-- Contenedor General de Filtros -->
   <div class="filters-area">
     <!-- Fila 1 de Filtros -->
     <div class="filters-row">
-      <!-- Re-aplicar ng-select para Docente Investigador -->
-      <div class="filter-item filter-item-large autocomplete-container">
+       <!-- Re-aplicar ng-select para Docente Investigador -->
+       <div class="filter-item filter-item-large autocomplete-container">
         <label for="docente-ng-select">Docente Investigador</label>
-        <ng-select 
-            id="docente-ng-select"
-            [items]="investigadorNames$ | async"
-            [(ngModel)]="docenteInvestigador"
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Seleccione o busque docente..."
-            [loading]="isLoadingInvestigadores"
-            (change)="onInvestigadorSelectChange()">
+        <ng-select id="docente-ng-select" [items]="investigadorNames$ | async" [(ngModel)]="docenteInvestigador"
+          [searchable]="true" [clearable]="true" placeholder="Seleccione o busque docente..."
+          [loading]="isLoadingInvestigadores" (change)="onInvestigadorSelectChange()">
         </ng-select>
       </div>
       <!-- Fin filtro Docente con ng-select -->
@@ -24,144 +18,144 @@
       <!-- Reemplazar Autocompletado manual Grupo por ng-select -->
       <div class="filter-item autocomplete-container filter-item-medium">
         <label for="grupo-ng-select">Grupo de Investigacion</label>
-        <ng-select 
-            id="grupo-ng-select"
-            [items]="grupoNames$ | async"
-            [(ngModel)]="grupoInvestigacionFilter" 
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Seleccione o busque grupo..."
-            [loading]="isLoadingGrupos"
-            (change)="onGrupoSelectChange()">
+        <ng-select id="grupo-ng-select" [items]="grupoNames$ | async" [(ngModel)]="grupoInvestigacionFilter"
+          [searchable]="true" [clearable]="true" placeholder="Seleccione o busque grupo..." [loading]="isLoadingGrupos"
+          (change)="onGrupoSelectChange()">
         </ng-select>
       </div>
       <!-- Fin filtro Grupo con ng-select -->
-
-      <div class="filter-item filter-item-buttons">
-        <button class="secondary-button" (click)="limpiarFiltros()">Limpiar</button>
+      <!-- Reemplazar filtro manual Línea por ng-select -->
+      <div class="filter-item filter-item-large autocomplete-container">
+        <label for="linea-ng-select">Línea de Investigación</label>
+        <ng-select id="linea-ng-select" [items]="lineaNames$ | async" [(ngModel)]="lineaInvestigacionFilter"
+          [searchable]="true" [clearable]="true" placeholder="Seleccione o busque línea..." [loading]="isLoadingLineas"
+          (change)="onLineaSelectChange()">
+        </ng-select>
       </div>
+      <!-- Fin filtro Línea con ng-select -->
+      <!-- Reemplazar filtro manual Tipo por ng-select -->
+      <div class="filter-item filter-item-medium autocomplete-container">
+        <label for="tipo-ng-select">Tipo de Investigación</label>
+        <ng-select id="tipo-ng-select" [items]="tipoNames$ | async" [(ngModel)]="tipoInvestigacionFilter"
+          [searchable]="true" [clearable]="true" placeholder="Seleccione o busque tipo..." [loading]="isLoadingTipos"
+          (change)="onTipoSelectChange()">
+        </ng-select>
+      </div>
+      <!-- Fin filtro Tipo con ng-select -->
+      <!-- Reemplazar filtro manual Año por ng-select -->
+      <div class="filter-item filter-item-small autocomplete-container">
+        <label for="anio-ng-select">Año</label>
+        <ng-select id="anio-ng-select" [items]="anioNames$ | async" [(ngModel)]="anioFilter" [searchable]="true"
+          [clearable]="true" placeholder="Año..." [loading]="isLoadingAnios" (change)="onAnioSelectChange()">
+        </ng-select>
+      </div>
+      <!-- Fin filtro Año con ng-select -->
     </div>
 
     <!-- Fila 2 de Filtros -->
     <div class="filters-row">
-      <!-- Reemplazar filtro manual Línea por ng-select -->
-      <div class="filter-item filter-item-large autocomplete-container">
-        <label for="linea-ng-select">Línea de Investigación</label>
-        <ng-select 
-            id="linea-ng-select"
-            [items]="lineaNames$ | async"
-            [(ngModel)]="lineaInvestigacionFilter"
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Seleccione o busque línea..."
-            [loading]="isLoadingLineas"
-            (change)="onLineaSelectChange()">
-        </ng-select>
-      </div>
-      <!-- Fin filtro Línea con ng-select -->
-
-      <!-- Reemplazar filtro manual Tipo por ng-select -->
-      <div class="filter-item filter-item-medium autocomplete-container">
-        <label for="tipo-ng-select">Tipo de Investigación</label>
-        <ng-select 
-            id="tipo-ng-select"
-            [items]="tipoNames$ | async"
-            [(ngModel)]="tipoInvestigacionFilter"
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Seleccione o busque tipo..."
-            [loading]="isLoadingTipos"
-            (change)="onTipoSelectChange()">
-        </ng-select>
-      </div>
-      <!-- Fin filtro Tipo con ng-select -->
-
-      <!-- Reemplazar filtro manual Año por ng-select -->
-      <div class="filter-item filter-item-small autocomplete-container">
-        <label for="anio-ng-select">Año</label>
-        <ng-select 
-            id="anio-ng-select"
-            [items]="anioNames$ | async"
-            [(ngModel)]="anioFilter"
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Año..."
-            [loading]="isLoadingAnios"
-            (change)="onAnioSelectChange()">
-        </ng-select>
-      </div>
-      <!-- Fin filtro Año con ng-select -->
-
       <div class="filter-item filter-item-buttons">
         <button class="primary-button" (click)="verTodo()">Ver Todo</button>
+      </div>
+      <div class="filter-item filter-item-buttons">
+        <button class="secondary-button" (click)="limpiarFiltros()">Limpiar</button>
       </div>
     </div>
   </div>
 
   <!-- Resultados y Paginación -->
-  <div class="results-section">
-    <div *ngIf="isLoading" class="loading-results">
-      <p>Buscando...</p>
-      <!-- Spinner -->
+  <div class="results-container">
+    <div *ngIf="isLoading" class="loading-indicator">Cargando resultados...</div>
+
+    <div *ngIf="!isLoading && !apiResponse?.data?.length && searchPerformed" class="no-results">
+      No se encontraron grupos con los criterios seleccionados.
     </div>
 
-    <div *ngIf="!isLoading && searchPerformed && !apiResponse?.data?.length" class="no-results">
-      <p>No se encontraron grupos para los criterios de búsqueda.</p>
-    </div>
+    <div *ngIf="!isLoading && apiResponse && apiResponse.data?.length" class="card-grid">
+      
+      <div class="result-card" *ngFor="let item of apiResponse.data">
+        <h3 class="card-title">{{ item.grupo.nombre }}</h3>
+        
+        <!-- Iconos de miembros (simplificado) -->
+        <div class="member-icons" *ngIf="item.investigadores?.length">
+          <span class="member-icon" *ngFor="let _ of item.investigadores | slice:0:4"></span>
+          <span *ngIf="item.investigadores.length > 4" class="more-members">+{{ item.investigadores.length - 4 }}</span>
+        </div>
+         <div class="member-icons no-members" *ngIf="!item.investigadores?.length">
+           <span>Sin investigadores asignados</span>
+        </div>
 
-    <div *ngIf="!isLoading && apiResponse?.data?.length" class="results-content">
-      <!-- Grid de Resultados -->
-      <div class="results-grid">
-        <div *ngFor="let item of apiResponse?.data" class="result-card">
-          <div class="card-header">{{ item.grupo?.nombre }}</div>
-          <div class="card-body">
-            <p><strong>Línea:</strong> {{ item.grupo?.lineaInvestigacion }}</p>
-            <p><strong>Tipo:</strong> {{ item.grupo?.tipoInvestigacion }}</p>
-            <ng-container *ngIf="item.investigadores && getCoordinador(item.investigadores) as coord">
-              <p><strong>Coordinador:</strong>
-                {{ coord?.nombre }}
-                {{ coord?.apellido }}
-              </p>
-            </ng-container>
-            <p *ngIf="!item.investigadores || !getCoordinador(item.investigadores)"><strong>Coordinador:</strong> No asignado</p>
-            <p><strong>Integrantes:</strong></p>
-            <ul *ngIf="item.investigadores && item.investigadores.length > 0">
-              <li *ngFor="let integrante of getIntegrantes(item.investigadores)">
-                {{ integrante?.nombre }} {{ integrante?.apellido }}
-              </li>
-            </ul>
-            <p *ngIf="!item.investigadores || getIntegrantes(item.investigadores).length === 0">No hay integrantes registrados.</p>
-          </div>
-          <div class="card-footer">
-            <div>
-              <p><strong>Nº Resolución:</strong> {{ item.grupo?.numeroResolucion }}</p>
-              <p><strong>Fecha:</strong> {{ item.grupo?.fechaRegistro | date:'dd '+'de '+'MMMM '+'de '+'yyyy' }}</p>
-            </div>
-            <div>
-              <a [href]="getResolucionUrl(item.grupo?.archivo)" target="_blank" title="Ver Resolución">
-                Ver Resolución <span class="eye-icon">👁️</span>
-              </a>
-            </div>
-          </div>
+        <div class="card-info">
+          <p class="info-item">
+            <strong>Coordinador:</strong> 
+            {{ getCoordinador(item.investigadores)?.nombre ? (getCoordinador(item.investigadores)?.nombre + ' ' + getCoordinador(item.investigadores)?.apellido) : 'No asignado' }}
+          </p>
+          <p class="info-item"><strong>N° Resolución:</strong> {{ item.grupo.numeroResolucion || 'N/A' }}</p>
+          <p class="info-item"><strong>Fecha de Creación:</strong> {{ item.grupo.fechaRegistro ? (item.grupo.fechaRegistro | date:'dd \'de\' LLLL \'del\' yyyy' : 'es') : 'N/A' }}</p>
+        </div>
+
+        <div class="card-buttons">
+          <a 
+            *ngIf="item.grupo.archivo"
+            [href]="getResolucionUrl(item.grupo.archivo)" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="button button-resolution">
+            Ver Resolución <span class="icon-eye"></span>
+          </a>
+           <button 
+            *ngIf="!item.grupo.archivo"
+            class="button button-resolution disabled" 
+            disabled>
+            Sin Resolución
+          </button>
+          <button class="button button-more" (click)="openMemberModal(item)">
+            Ver más
+          </button>
         </div>
       </div>
 
-      <!-- Paginación -->
-      <div class="pagination-container" *ngIf="totalPages > 1">
-        <span class="pagination-info">{{ itemsRange }}</span>
-        <div class="pagination-controls">
-          <button (click)="previousPage()" [disabled]="!canGoPrevious">&#9664;</button>
-          <ng-container *ngFor="let page of paginationPages">
-            <button *ngIf="page !== '...'" 
-                    (click)="goToPage(+page)" 
-                    [class.active]="page === currentPage">
-              {{ page }}
-            </button>
-            <span *ngIf="page === '...'" class="pagination-dots">...</span>
-          </ng-container>
-          <button (click)="nextPage()" [disabled]="!canGoNext">&#9654;</button>
-        </div>
-      </div>
     </div>
   </div>
 </div>
+
+<!-- *** Reincorporar Paginación *** -->
+<div class="pagination-container" *ngIf="!isLoading && totalPages > 1">
+  <span class="pagination-info">{{ itemsRange }}</span>
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="!canGoPrevious" aria-label="Página anterior">
+      <span class="icon-prev"></span>
+    </button>
+    <ng-container *ngFor="let page of paginationPages">
+      <button *ngIf="page !== '...'" (click)="goToPage(+page)" [class.active]="page === currentPage">
+        {{ page }}
+      </button>
+      <span *ngIf="page === '...'" class="pagination-dots">...</span>
+    </ng-container>
+    <button (click)="nextPage()" [disabled]="!canGoNext" aria-label="Página siguiente">
+      <span class="icon-next"></span>
+    </button>
+  </div>
+</div>
+
+<!-- Modal para ver miembros -->
+<div class="modal-backdrop" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4>Integrantes de: {{ selectedGroupForModal?.grupo?.nombre }}</h4>
+      <button class="close-button" (click)="closeMemberModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <ul *ngIf="selectedGroupForModal?.investigadores?.length; else noIntegrantes">
+        <li *ngFor="let integrante of selectedGroupForModal?.investigadores">
+            {{ integrante.nombre }} {{ integrante.apellido }} ({{ integrante.rol }})
+        </li>
+      </ul>
+      <ng-template #noIntegrantes>
+        <p>No hay integrantes asignados a este grupo.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- ... (resto del HTML si hay) ... -->
