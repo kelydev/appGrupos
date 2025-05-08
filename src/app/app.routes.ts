@@ -9,6 +9,7 @@ import { InvestigadorEditComponent } from './page/investigador/edit/edit.compone
 import { SearchByInvestigadorComponent } from './page/grupo/search-by-investigador/search-by-investigador.component';
 import { UserLoginComponent } from './page/user/login/user-login.component';
 import { HomeComponent } from './page/home/home.component';
+import { DetalleGrupoInvestigadorGetAllComponent } from './page/detalle_grupo_investigador/getall/detalle-grupo-investigador-get-all.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,11 +24,12 @@ export const routes: Routes = [
 
   // Rutas Grupo
   { path: 'grupos', component: GrupoGetAllComponent },
-  { path: 'grupos/nuevo', component: GrupoInsertComponent },
+  { path: 'grupos/nuevo', component: DetalleGrupoInvestigadorInsertComponent },
   { path: 'gruposInvestigacion', component: SearchByInvestigadorComponent },
 
   // Rutas Detalle (Asociación)
   { path: 'detalles/nuevo', component: DetalleGrupoInvestigadorInsertComponent },
+  { path: 'detalles', component: DetalleGrupoInvestigadorGetAllComponent },
 
   // Ejemplo de Ruta por defecto y Wildcard (ajusta según necesidad)
   // { path: '**', component: NotFoundComponent } // Ruta para páginas no encontradas

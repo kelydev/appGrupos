@@ -1,1 +1,178 @@
-<p>detalle-grupo-investigador-get-all works!</p>
+<div class="list-container">
+  <h2>Lista de Resoluciones</h2>
+
+  <!-- Filtros -->
+  <div class="filter-bar">
+    <div class="filter-inputs">
+      <input type="text" placeholder="N° Resolución" [(ngModel)]="filtroResolucion">
+      <input type="text" placeholder="Nombre del Investigador" [(ngModel)]="filtroInvestigador">
+      <input type="text" placeholder="Grupo" [(ngModel)]="filtroGrupo">
+      <input type="text" placeholder="Año" [(ngModel)]="filtroAnio">
+    </div>
+    <div class="filter-buttons">
+      <button class="search-button">Buscar</button>
+      <button class="add-button" (click)="abrirModal()">+</button>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="tabla-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre del Investigador </th>
+          <th>Grupo</th>
+          <th>Rol</th>
+          <th>Año</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let det of detallesFiltrados">
+          <td>{{ det.idGrupoInvestigador }}</td>
+          <td>{{ det.nombreInvestigador }}</td>
+          <td>{{ det.nombreGrupo }}</td>
+          <td>{{ det.rol }}</td>
+          <td>{{ det.anio }}</td>
+          <td>
+            <!-- Botones de acción -->
+            <button class="action-button" title="Ver Detalles" (click)="adjuntarArchivo(det.idInvestigador)">
+              <span class="icon-view"></span>
+            </button>
+            <button class="action-button" title="Editar" (click)="editarDetalle(det.idInvestigador)">
+              <span class="icon-edit"></span>
+            </button>
+            <button class="action-button" title="Eliminar" (click)="eliminarDetalle(det.idInvestigador)">
+              <span class="icon-delete"></span>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="detallesFiltrados.length === 0">
+          <td colspan="6" style="text-align:center;">No hay resoluciones para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <div class="paginacion-bar" *ngIf="totalPaginas > 1">
+    <button (click)="cambiarPagina(-1)" [disabled]="paginaActual === 1">&#60;</button>
+    <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+    <button (click)="cambiarPagina(1)" [disabled]="paginaActual === totalPaginas">&#62;</button>
+  </div>
+</div>
+
+<!-- Modal para agregar resolución -->
+<div class="modal-backdrop" *ngIf="modalAbierto">
+  <div class="modal-content">
+    <h3>Registrar Resolucion</h3>
+    <form (ngSubmit)="registrarResolucion()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Numero de Resolución</label>
+          <input type="text" placeholder="Ingrese Numero de Resolucion" [(ngModel)]="nroResolucion" name="nroResolucion">
+        </div>
+        <div class="form-group">
+          <label>Fecha</label>
+          <mat-form-field appearance="outline" style="width:100%; background: transparent;">
+            <input matInput [matDatepicker]="picker" placeholder="Selecciona fecha" [(ngModel)]="fechaSeleccionada" name="fechaSeleccionada" [ngModelOptions]="{standalone: true}">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label>Grupo de Investigación</label>
+          <input type="text" placeholder="Ingrese nombre del Grupo de Investigación" [(ngModel)]="grupoInvestigacion" name="grupoInvestigacion">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Investigador Coordinador</label>
+          <ng-select 
+            [items]="investigadoresSelect"
+            bindLabel="nombreCompleto"
+            bindValue="nombreCompleto"
+            [(ngModel)]="investigadorCoordinador"
+            placeholder="Seleccione o busque investigador..."
+            [searchable]="true"
+            [clearable]="true"
+            name="investigadorCoordinador"
+          >
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <label>Línea de Investigación</label>
+          <select [(ngModel)]="lineaInvestigacion" name="lineaInvestigacion">
+            <option value="">Selecciona línea Investigación</option>
+            <option *ngFor="let linea of lineasInvestigacion" [value]="linea">{{linea}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo de Grupo de Investigación</label>
+          <select [(ngModel)]="tipoGrupo" name="tipoGrupo">
+            <option value="">Selecciona tipo de grupo</option>
+            <option *ngFor="let tipo of tiposGrupo" [value]="tipo">{{tipo}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex:2;">
+          <label>Integrantes</label>
+          <mat-form-field class="example-chip-list" appearance="outline" style="width:100%; background: transparent;">
+            <mat-label>Integrantes</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Integrantes">
+              <mat-chip-row *ngFor="let integrante of integrantes" (removed)="removeIntegrante(integrante)">
+                {{integrante}}
+                <button matChipRemove [attr.aria-label]="'remove ' + integrante">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+            </mat-chip-grid>
+            <input
+              placeholder="Agregar integrante..."
+              #integranteInput
+              [(ngModel)]="currentIntegrante"
+              [matChipInputFor]="chipGrid"
+              [matAutocomplete]="auto"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addIntegrante($event)"
+              name="integranteInput"
+              style="padding: 0.4rem 0.6rem;"
+            />
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedIntegrante($event); integranteInput.value = ''">
+              <mat-option *ngFor="let integrante of filteredIntegrantes" [value]="integrante">{{integrante}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>Archivo (JPG, PNG, PDF, DOCX)</label>
+          <div style="display:flex; gap:0.5rem; align-items:center;">
+            <input 
+              type="file" 
+              #fileInput 
+              style="display:none" 
+              (change)="onFileSelected($event)" 
+              accept=".jpg,.jpeg,.png,.pdf,.docx"
+            >
+            <button 
+              type="button" 
+              class="btn-file" 
+              (click)="fileInput.click()"
+            >Adjuntar</button>
+            <input 
+              type="text" 
+              readonly 
+              [value]="nombreArchivo || 'No se eligió ningún archivo'" 
+              style="flex:1;"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="form-row" style="justify-content: flex-end;">
+        <button type="submit" class="btn-registrar">Registrar</button>
+        <button type="button" (click)="cerrarModal()" class="btn-cerrar">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>

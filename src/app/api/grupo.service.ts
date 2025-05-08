@@ -120,6 +120,10 @@ export class GrupoService {
     return this.http.post<Grupo>(`${this.apiUrl}/with-details`, data);
   }
 
+  // POST /grupos con archivo (FormData)
+  createGrupoConArchivo(formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData);
+  }
 
   // PUT /grupos/{id}
   // TODO: Manejar FormData si la API espera subida de archivos multipart/form-data

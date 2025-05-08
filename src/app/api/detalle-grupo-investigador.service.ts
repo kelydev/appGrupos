@@ -37,4 +37,14 @@ export class DetalleGrupoInvestigadorService {
   deleteDetalle(id: number | string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  // GET /detalles (con paginación)
+  getAllDetalles(page: number = 1, limit: number = 6): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?page=${page}&limit=${limit}`);
+  }
+
+  // POST /detalles con archivo (FormData)
+  createDetalleConArchivo(formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData);
+  }
 }
