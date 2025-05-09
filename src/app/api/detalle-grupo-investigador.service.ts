@@ -24,8 +24,8 @@ export class DetalleGrupoInvestigadorService {
   }
 
   // POST /detalles
-  createDetalle(detalle: Omit<DetalleGrupoInvestigador, 'id'>): Observable<DetalleGrupoInvestigador> {
-    return this.http.post<DetalleGrupoInvestigador>(this.apiUrl, detalle);
+  createDetalle(detalle: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, detalle);
   }
 
   // PUT /detalles/{id}

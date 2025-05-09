@@ -237,17 +237,26 @@ export class DetalleGrupoInvestigadorGetAllComponent implements OnInit {
       const idGrupo = grupoResp.id || grupoResp.idGrupo || grupoResp.grupo?.idGrupo;
       if (!idGrupo) throw new Error('No se pudo obtener el ID del grupo creado');
 
-      // 2. Registrar detalle para cada integrante (solo los de la lista de integrantes)
+      // 2. Registrar detalle para el coordinador con rol 'Coordinador'
+      const coordinador = this.investigadoresSelect.find(i => i.nombreCompleto === this.investigadorCoordinador);
+      if (!coordinador) throw new Error('No se encontró el investigador coordinador');
+      const detalleCoordinador = {
+        idGrupo: idGrupo,
+        idInvestigador: coordinador.id,
+        rol: 'Coordinador'
+      };
+      await this.detalleService.createDetalle(detalleCoordinador).toPromise();
+
+      // 3. Registrar detalle para cada integrante con rol 'Integrante'
       for (const nombre of this.integrantes) {
-        // Buscar el id del investigador por nombre completo en investigadoresSelect
         const investigador = this.investigadoresSelect.find(i => i.nombreCompleto === nombre);
         if (!investigador) {
           alert(`No se encontró el investigador: ${nombre}`);
           continue;
         }
         const detalle = {
-          grupo_id: idGrupo,
-          investigador_id: investigador.id,
+          idGrupo: idGrupo,
+          idInvestigador: investigador.id,
           rol: 'Integrante'
         };
         await this.detalleService.createDetalle(detalle).toPromise();

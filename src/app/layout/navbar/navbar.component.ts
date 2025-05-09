@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router'; // Importar RouterModule para [routerLink]
+import { RouterModule, Router } from '@angular/router'; // Importar Router
 import { CommonModule } from '@angular/common'; // Importar CommonModule para *ngIf, etc.
 import { UserService } from '../../api/user.service'; // Importar UserService
 // Importar AuthService si se necesita para el botón de logout
@@ -17,13 +17,26 @@ import { UserService } from '../../api/user.service'; // Importar UserService
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  // *** Inyectar UserService ***
-  private userService = inject(UserService);
+  // Hacer público para el template
+  public userService = inject(UserService);
+  private router = inject(Router);
 
   // *** Método para cerrar sesión ***
   logout(): void {
     this.userService.logout();
-    // Opcional: Redirigir explícitamente si es necesario (aunque el guard ya debería hacerlo)
-    // this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
+  }
+
+  // Método para obtener el nombre del usuario desde el JWT
+  getUserName(): string | null {
+    const token = this.userService.getToken();
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      // Ajusta el campo según cómo venga en tu JWT
+      return payload.nombre || payload.name || payload.username || null;
+    } catch {
+      return null;
+    }
   }
 } 

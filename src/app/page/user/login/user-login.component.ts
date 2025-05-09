@@ -58,7 +58,7 @@ export class UserLoginComponent implements OnInit {
         next: (response) => {
           if (response && response.token) {
             console.log('Login exitoso, redirigiendo...');
-            this.router.navigate(['/']);
+            this.router.navigate(['/investigadores']);
           } else {
             this.loginError = 'Respuesta inesperada del servidor. Intente de nuevo.';
             console.warn('Login OK pero respuesta inesperada:', response);

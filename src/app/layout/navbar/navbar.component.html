@@ -13,7 +13,13 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
+          <span *ngIf="userService.getToken()" style="margin-right: 1rem; font-weight: 500;">
+            {{ getUserName() || 'Usuario' }}
+          </span>
           <button class="button profile-button" (click)="logout()">
+            Cerrar sesión
+          </button>
+          <button class="button profile-button">
             <span class="icon-profile"></span>
             Perfil
           </button>
