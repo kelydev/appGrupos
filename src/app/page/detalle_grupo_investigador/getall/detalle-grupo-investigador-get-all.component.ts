@@ -59,10 +59,9 @@ export class DetalleGrupoInvestigadorGetAllComponent implements OnInit {
   modalAbierto: boolean = false;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  integrantes: string[] = ['Maria Carbajal', 'Oscar Carbajal', 'Jesus Carbajal'];
-  allIntegrantes: string[] = ['Maria Carbajal', 'Oscar Carbajal', 'Jesus Carbajal', 'Luis Hurtado', 'Ana López'];
+  integrantes: string[] = [];
+  allIntegrantes: string[] = [];
   currentIntegrante: string = '';
-  filteredIntegrantes: string[] = this.allIntegrantes.slice();
 
   fechaSeleccionada: Date | null = null;
 
@@ -87,13 +86,14 @@ export class DetalleGrupoInvestigadorGetAllComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.cargarDatos();
-    // Cargar investigadores para el select
+    // Cargar investigadores para el select y chips
     const resp = await fetch('http://localhost:3000/investigadores/all');
     const data = await resp.json();
     this.investigadoresSelect = data.data.map((inv: any) => ({
       id: inv.idInvestigador,
       nombreCompleto: `${inv.nombre} ${inv.apellido}`
     }));
+    this.allIntegrantes = this.investigadoresSelect.map((inv: any) => inv.nombreCompleto);
   }
 
   cargarDatos(): void {
@@ -182,11 +182,10 @@ export class DetalleGrupoInvestigadorGetAllComponent implements OnInit {
 
   addIntegrante(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    if (value && !this.integrantes.includes(value)) {
+    if (value && !this.integrantes.includes(value) && this.allIntegrantes.includes(value)) {
       this.integrantes.push(value);
     }
     this.currentIntegrante = '';
-    this.filterIntegrantes();
   }
 
   removeIntegrante(integrante: string): void {
@@ -194,21 +193,19 @@ export class DetalleGrupoInvestigadorGetAllComponent implements OnInit {
     if (index >= 0) {
       this.integrantes.splice(index, 1);
     }
-    this.filterIntegrantes();
   }
 
   selectedIntegrante(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.value;
-    if (value && !this.integrantes.includes(value)) {
+    if (value && !this.integrantes.includes(value) && this.allIntegrantes.includes(value)) {
       this.integrantes.push(value);
     }
     this.currentIntegrante = '';
-    this.filterIntegrantes();
   }
 
-  filterIntegrantes(): void {
+  get filteredIntegrantes(): string[] {
     const filterValue = this.currentIntegrante.toLowerCase();
-    this.filteredIntegrantes = this.allIntegrantes.filter(integrante =>
+    return this.allIntegrantes.filter(integrante =>
       integrante.toLowerCase().includes(filterValue) && !this.integrantes.includes(integrante)
     );
   }
